@@ -1,0 +1,89 @@
+{% extends "planejamentos/base.html" %}
+
+{% block title %}
+    Meus Planejamentos
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card">
+
+    <div class="cabecalho-pagina">
+
+        <h2>
+            Meus Planejamentos
+        </h2>
+
+        <a href="{% url 'novo_planejamento' %}" 
+            class="botao">
+            + Novo Planejamento
+        </a>
+
+    </div>
+
+
+    {% if planejamentos %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Período</th>
+                    <th>Escola</th>
+                    <th>Etapa</th>
+                    <th>Série/Ano</th>
+                    <th>Disciplina</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for planejamento in planejamentos %}
+
+                    <tr>
+
+                        <td>
+                            {{ planejamento.mes|stringformat:"02d" }}/{{ planejamento.ano }}
+                        </td>
+
+                        <td>
+                            {{ planejamento.escola }}
+                        </td>
+
+                        <td>
+                            {{ planejamento.serie.etapa }}
+                        </td>
+
+                        <td>
+                            {{ planejamento.serie }}
+                        </td>
+
+                        <td>
+                            {{ planejamento.disciplina }}
+                        </td>
+
+                        <td>
+                            {{ planejamento.get_status_display }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <div class="vazio">
+            Você ainda não possui planejamentos.
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

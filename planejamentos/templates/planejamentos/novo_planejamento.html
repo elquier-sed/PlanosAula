@@ -1,0 +1,1462 @@
+{% extends "planejamentos/base.html" %}
+
+{% block title %}
+    Novo Planejamento
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="cabecalho-pagina">
+        <h2>Novo Planejamento</h2>
+
+        <a
+            href="{% url 'lista_planejamentos' %}"
+            class="botao botao-secundario"
+        >
+            Voltar
+        </a>
+    </div>
+
+
+    <form method="post" id="form-planejamento">
+
+        {% csrf_token %}
+
+
+        {% if form.non_field_errors %}
+            <div class="erros-formulario">
+                {% for erro in form.non_field_errors %}
+                    <p>{{ erro }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        <!-- ================================================= -->
+        <!-- IDENTIFICAÇÃO                                      -->
+        <!-- ================================================= -->
+
+        <div class="secao-formulario">
+
+            <h3>Identificação do Planejamento</h3>
+
+            <div class="grade-formulario">
+
+                <!-- ESCOLA -->
+
+                <div class="campo campo-grande">
+
+                    <label for="{{ form.escola.id_for_label }}">
+                        Escola
+                    </label>
+
+                    {{ form.escola }}
+
+                    {% for erro in form.escola.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- MÊS -->
+
+                <div class="campo">
+
+                    <label for="{{ form.mes.id_for_label }}">
+                        Mês
+                    </label>
+
+                    {{ form.mes }}
+
+                    {% for erro in form.mes.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- ANO -->
+
+                <div class="campo">
+
+                    <label for="{{ form.ano.id_for_label }}">
+                        Ano
+                    </label>
+
+                    {{ form.ano }}
+
+                    {% for erro in form.ano.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- SÉRIE -->
+
+                <div class="campo campo-grande">
+
+                    <label for="{{ form.serie.id_for_label }}">
+                        Série/Ano
+                    </label>
+
+                    {{ form.serie }}
+
+                    {% for erro in form.serie.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- DISCIPLINA -->
+
+                <div class="campo campo-grande">
+
+                    <label for="{{ form.disciplina.id_for_label }}">
+                        Disciplina
+                    </label>
+
+                    {{ form.disciplina }}
+
+                    {% for erro in form.disciplina.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- QUANTIDADE DE AULAS -->
+
+                <div class="campo">
+
+                    <label for="{{ form.quantidade_aulas.id_for_label }}">
+                        Quantidade de Aulas
+                    </label>
+
+                    {{ form.quantidade_aulas }}
+
+                    {% for erro in form.quantidade_aulas.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- DADOS CURRICULARES                                -->
+        <!-- ================================================= -->
+
+        <div
+            class="secao-formulario"
+            id="secao-curricular"
+            style="display: none;"
+        >
+
+            <h3>Competências e Habilidades</h3>
+
+
+            <!-- COMPETÊNCIAS -->
+
+            <div class="campo">
+
+                <label>
+                    Competências
+                </label>
+
+                <div
+                    id="lista-competencias"
+                    class="lista-selecao"
+                ></div>
+
+                {% for erro in form.competencias.errors %}
+                    <div class="erro">
+                        {{ erro }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+
+            <!-- HABILIDADES REGULARES -->
+
+            <div
+                class="campo"
+                id="bloco-habilidades"
+                style="margin-top: 25px;"
+            >
+
+                <label>
+                    Habilidades
+                </label>
+
+                <div
+                    id="lista-habilidades"
+                    class="lista-selecao"
+                ></div>
+
+                {% for erro in form.habilidades.errors %}
+                    <div class="erro">
+                        {{ erro }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- OUTRAS HABILIDADES -->
+
+            <div
+                class="campo"
+                style="margin-top: 20px;"
+            >
+
+                <label for="{{ form.outras_habilidades.id_for_label }}">
+                    Outras Habilidades
+                </label>
+
+                {{ form.outras_habilidades }}
+
+                {% for erro in form.outras_habilidades.errors %}
+                    <div class="erro">
+                        {{ erro }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+
+            <!-- CURRÍCULO DIGITAL -->
+
+            <div
+                class="campo"
+                style="margin-top: 25px;"
+            >
+
+                <label>
+                    Habilidades do Currículo Digital
+                </label>
+
+                <div
+                    id="lista-curriculo-digital"
+                    class="lista-selecao"
+                ></div>
+
+                {% for erro in form.habilidades_curriculo_digital.errors %}
+                    <div class="erro">
+                        {{ erro }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- OUTRAS HABILIDADES DO CURRÍCULO DIGITAL -->
+
+            <div
+                class="campo"
+                style="margin-top: 20px;"
+            >
+
+                <label for="{{ form.outras_habilidades_curriculo_digital.id_for_label }}">
+                    Outras Habilidades do Currículo Digital
+                </label>
+
+                {{ form.outras_habilidades_curriculo_digital }}
+
+                {% for erro in form.outras_habilidades_curriculo_digital.errors %}
+                    <div class="erro">
+                        {{ erro }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- OBJETOS DE CONHECIMENTO -->
+
+            <div
+                class="campo"
+                style="margin-top: 25px;"
+            >
+
+                <label for="{{ form.objetos_conhecimento.id_for_label }}">
+                    Objetos de Conhecimento
+                </label>
+
+                {{ form.objetos_conhecimento }}
+
+                {% for erro in form.objetos_conhecimento.errors %}
+                    <div class="erro">
+                        {{ erro }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- CAMINHO METODOLÓGICO -->
+
+            <div
+                class="campo"
+                style="margin-top: 25px;"
+            >
+
+                <label for="{{ form.metodologia.id_for_label }}">
+                    Caminho Metodológico
+                </label>
+
+                {{ form.metodologia }}
+
+                {% for erro in form.metodologia.errors %}
+                    <div class="erro">
+                        {{ erro }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- ================================================= -->
+            <!-- RECOMPOSIÇÃO DA APRENDIZAGEM                      -->
+            <!-- ================================================= -->
+
+            <div
+                class="secao-formulario"
+                id="secao-recomposicao"
+                style="display: none;"
+            >
+
+                <h3>Recomposição da Aprendizagem</h3>
+
+
+                <!-- HABILIDADES PARA RECOMPOSIÇÃO -->
+
+                <div class="campo">
+
+                    <label for="{{ form.habilidades_recomposicao.id_for_label }}">
+                        Habilidades para Recomposição
+                    </label>
+
+                    {{ form.habilidades_recomposicao }}
+
+                    {% for erro in form.habilidades_recomposicao.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- CAMINHO METODOLÓGICO DA RECOMPOSIÇÃO -->
+
+                <div
+                    class="campo"
+                    style="margin-top: 20px;"
+                >
+
+                    <label for="{{ form.caminho_metodologico_recomposicao.id_for_label }}">
+                        Caminho Metodológico da Recomposição
+                    </label>
+
+                    {{ form.caminho_metodologico_recomposicao }}
+
+                    {% for erro in form.caminho_metodologico_recomposicao.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>            
+
+            <!-- ================================================= -->
+            <!-- RECURSOS PEDAGÓGICOS                              -->
+            <!-- ================================================= -->
+
+            <div class="secao-formulario">
+
+                <h3>Recursos Pedagógicos</h3>
+
+
+                <!-- RECURSOS CADASTRADOS -->
+
+                <div class="campo">
+
+                    <label>
+                        Recursos Pedagógicos
+                    </label>
+
+                    <div class="lista-selecao">
+
+                        {% for checkbox in form.recursos_pedagogicos %}
+
+                            <label class="item-selecao">
+
+                                {{ checkbox.tag }}
+
+                                <span>
+                                    {{ checkbox.choice_label }}
+                                </span>
+
+                            </label>
+
+                        {% empty %}
+
+                            <p class="mensagem-vazia">
+                                Nenhum recurso pedagógico cadastrado.
+                            </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% for erro in form.recursos_pedagogicos.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- OUTRO RECURSO -->
+
+                <div
+                    class="campo"
+                    style="margin-top: 20px;"
+                >
+
+                    <label for="{{ form.outro_recurso_pedagogico.id_for_label }}">
+                        Outro Recurso Pedagógico
+                    </label>
+
+                    {{ form.outro_recurso_pedagogico }}
+
+                    {% for erro in form.outro_recurso_pedagogico.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- ================================================= -->
+            <!-- AVALIAÇÃO                                         -->
+            <!-- ================================================= -->
+
+            <div class="secao-formulario">
+
+                <h3>Avaliação</h3>
+
+
+                <!-- ============================================= -->
+                <!-- CRITÉRIOS DE AVALIAÇÃO - SOMENTE EM          -->
+                <!-- ============================================= -->
+
+                <div
+                    class="campo"
+                    id="bloco-criterios-avaliacao-em"
+                    style="display: none;"
+                >
+
+                    <label>
+                        Critérios de Avaliação - Currículo Digital
+                    </label>
+
+                    <div class="lista-selecao">
+
+                        {% for checkbox in form.criterios_avaliacao_em %}
+
+                            <label class="item-selecao">
+
+                                {{ checkbox.tag }}
+
+                                <span>
+                                    {{ checkbox.choice_label }}
+                                </span>
+
+                            </label>
+
+                        {% empty %}
+
+                            <p class="mensagem-vazia">
+                                Nenhum critério de avaliação cadastrado.
+                            </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% for erro in form.criterios_avaliacao_em.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- ============================================= -->
+                <!-- INSTRUMENTOS DE AVALIAÇÃO                    -->
+                <!-- ============================================= -->
+
+                <div
+                    class="campo"
+                    style="margin-top: 25px;"
+                >
+
+                    <label>
+                        Instrumentos de Avaliação
+                    </label>
+
+                    <div class="lista-selecao">
+
+                        {% for checkbox in form.instrumentos_avaliacao %}
+
+                            <label class="item-selecao">
+
+                                {{ checkbox.tag }}
+
+                                <span>
+                                    {{ checkbox.choice_label }}
+                                </span>
+
+                            </label>
+
+                        {% empty %}
+
+                            <p class="mensagem-vazia">
+                                Nenhum instrumento de avaliação cadastrado.
+                            </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% for erro in form.instrumentos_avaliacao.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- ============================================= -->
+                <!-- OUTRO INSTRUMENTO                            -->
+                <!-- ============================================= -->
+
+                <div
+                    class="campo"
+                    style="margin-top: 20px;"
+                >
+
+                    <label for="{{ form.outro_instrumento_avaliacao.id_for_label }}">
+                        Outro Instrumento de Avaliação
+                    </label>
+
+                    {{ form.outro_instrumento_avaliacao }}
+
+                    {% for erro in form.outro_instrumento_avaliacao.errors %}
+                        <div class="erro">
+                            {{ erro }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+                <!-- ================================================= -->
+                <!-- REFERÊNCIAS                                       -->
+                <!-- ================================================= -->
+
+                <div class="secao-formulario">
+
+                    <h3>Referências</h3>
+
+
+                    <!-- REFERÊNCIAS CADASTRADAS -->
+
+                    <div class="campo">
+
+                        <label>
+                            Referências
+                        </label>
+
+                        <div class="lista-selecao">
+
+                            {% for checkbox in form.referencias %}
+
+                                <label class="item-selecao">
+
+                                    {{ checkbox.tag }}
+
+                                    <span>
+                                        {{ checkbox.choice_label }}
+                                    </span>
+
+                                </label>
+
+                            {% empty %}
+
+                                <p class="mensagem-vazia">
+                                    Nenhuma referência cadastrada.
+                                </p>
+
+                            {% endfor %}
+
+                        </div>
+
+                        {% for erro in form.referencias.errors %}
+                            <div class="erro">
+                                {{ erro }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- OUTRA REFERÊNCIA -->
+
+                    <div
+                        class="campo"
+                        style="margin-top: 20px;"
+                    >
+
+                        <label for="{{ form.outra_referencia.id_for_label }}">
+                            Outra Referência
+                        </label>
+
+                        {{ form.outra_referencia }}
+
+                        {% for erro in form.outra_referencia.errors %}
+                            <div class="erro">
+                                {{ erro }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- AÇÕES                                             -->
+        <!-- ================================================= -->
+
+        <div class="acoes-formulario">
+
+            <a
+                href="{% url 'lista_planejamentos' %}"
+                class="botao botao-secundario"
+            >
+                Cancelar
+            </a>
+
+            <button
+                type="submit"
+                class="botao"
+            >
+                Salvar e Continuar
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT                                                -->
+<!-- ========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // =====================================================
+    // ELEMENTOS
+    // =====================================================
+
+    const serieSelect =
+        document.getElementById("id_serie");
+
+    const disciplinaSelect =
+        document.getElementById("id_disciplina");
+
+    const secaoCurricular =
+        document.getElementById("secao-curricular");
+
+    const listaCompetencias =
+        document.getElementById("lista-competencias");
+
+    const listaHabilidades =
+        document.getElementById("lista-habilidades");
+
+    const listaCurriculoDigital =
+        document.getElementById(
+            "lista-curriculo-digital"
+        );
+
+    const secaoRecomposicao =
+        document.getElementById(
+            "secao-recomposicao"
+        );
+
+    const blocoCriteriosAvaliacaoEM =
+        document.getElementById(
+            "bloco-criterios-avaliacao-em"
+        );
+
+
+    // EF ou EM
+
+    let tipoEtapa = null;
+
+
+    // Número usado para ignorar respostas antigas
+    // de requisições AJAX de habilidades.
+
+    let requisicaoHabilidades = 0;
+
+
+    // =====================================================
+    // CRIAR CHECKBOX
+    // =====================================================
+
+    function criarCheckbox(
+        container,
+        nomeCampo,
+        id,
+        codigo,
+        descricao
+    ) {
+
+        const item =
+            document.createElement("label");
+
+        item.className = "item-selecao";
+
+
+        const checkbox =
+            document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.name = nomeCampo;
+        checkbox.value = id;
+
+
+        const texto =
+            document.createElement("span");
+
+
+        if (codigo) {
+
+            texto.textContent =
+                codigo
+                + " - "
+                + descricao;
+
+        } else {
+
+            texto.textContent =
+                descricao;
+
+        }
+
+
+        item.appendChild(checkbox);
+
+        item.appendChild(texto);
+
+        container.appendChild(item);
+
+    }
+
+
+    // =====================================================
+    // LIMPAR DADOS CURRICULARES
+    // =====================================================
+
+    function limparDadosCurriculares() {
+
+        secaoCurricular.style.display = "none";
+
+        secaoRecomposicao.style.display = "none";
+
+        blocoCriteriosAvaliacaoEM.style.display = "none";
+
+        listaCompetencias.innerHTML = "";
+
+        listaHabilidades.innerHTML = "";
+
+        listaCurriculoDigital.innerHTML = "";
+
+        tipoEtapa = null;
+
+        requisicaoHabilidades++;
+
+    }
+
+
+    // =====================================================
+    // CARREGAR DISCIPLINAS
+    // =====================================================
+
+    function carregarDisciplinas() {
+
+        const serieId =
+            serieSelect.value;
+
+
+        disciplinaSelect.innerHTML =
+            '<option value="">'
+            + 'Selecione uma disciplina'
+            + '</option>';
+
+
+        limparDadosCurriculares();
+
+
+        if (!serieId) {
+            return;
+        }
+
+
+        const url =
+            "{% url 'carregar_disciplinas' %}"
+            + "?serie="
+            + encodeURIComponent(serieId);
+
+
+        fetch(url)
+
+            .then(function (response) {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Erro ao carregar disciplinas."
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(function (data) {
+
+                data.disciplinas.forEach(
+                    function (disciplina) {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value =
+                            disciplina.id;
+
+                        option.textContent =
+                            disciplina.nome;
+
+                        disciplinaSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+            })
+
+            .catch(function (error) {
+
+                console.error(error);
+
+                alert(
+                    "Não foi possível carregar "
+                    + "as disciplinas."
+                );
+
+            });
+
+    }
+
+
+    // =====================================================
+    // CARREGAR HABILIDADES REGULARES
+    // =====================================================
+
+    function carregarHabilidades() {
+
+        const serieId =
+            serieSelect.value;
+
+        const disciplinaId =
+            disciplinaSelect.value;
+
+
+        const numeroRequisicao =
+            ++requisicaoHabilidades;
+
+
+        // Guarda as habilidades que já estavam marcadas.
+
+        const habilidadesSelecionadas =
+            new Set(
+
+                Array.from(
+                    listaHabilidades.querySelectorAll(
+                        'input[name="habilidades"]:checked'
+                    )
+                ).map(
+                    function (checkbox) {
+                        return checkbox.value;
+                    }
+                )
+
+            );
+
+
+        listaHabilidades.innerHTML = "";
+
+
+        if (
+            !serieId
+            || !disciplinaId
+            || !tipoEtapa
+        ) {
+
+            return;
+
+        }
+
+
+        // =================================================
+        // COMPETÊNCIAS MARCADAS
+        // =================================================
+
+        const competenciasMarcadas =
+            Array.from(
+
+                listaCompetencias.querySelectorAll(
+                    'input[name="competencias"]:checked'
+                )
+
+            ).map(
+                function (checkbox) {
+                    return checkbox.value;
+                }
+            );
+
+
+        // No EM precisamos de pelo menos
+        // uma competência selecionada.
+
+        if (
+            tipoEtapa === "EM"
+            && competenciasMarcadas.length === 0
+        ) {
+
+            listaHabilidades.innerHTML =
+                "<p class='mensagem-vazia'>"
+                + "Selecione uma competência para "
+                + "visualizar suas habilidades."
+                + "</p>";
+
+            return;
+
+        }
+
+
+        // =================================================
+        // PARÂMETROS
+        // =================================================
+
+        const parametros =
+            new URLSearchParams();
+
+
+        parametros.append(
+            "serie",
+            serieId
+        );
+
+
+        parametros.append(
+            "disciplina",
+            disciplinaId
+        );
+
+
+        competenciasMarcadas.forEach(
+            function (competenciaId) {
+
+                parametros.append(
+                    "competencias",
+                    competenciaId
+                );
+
+            }
+        );
+
+
+        const url =
+            "{% url 'carregar_habilidades' %}"
+            + "?"
+            + parametros.toString();
+
+
+        listaHabilidades.innerHTML =
+            "<p class='mensagem-vazia'>"
+            + "Carregando habilidades..."
+            + "</p>";
+
+
+        fetch(url)
+
+            .then(function (response) {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Erro ao carregar habilidades."
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(function (data) {
+
+                // Se outra requisição foi feita
+                // depois desta, ignora esta resposta.
+
+                if (
+                    numeroRequisicao
+                    !== requisicaoHabilidades
+                ) {
+
+                    return;
+
+                }
+
+
+                listaHabilidades.innerHTML = "";
+
+
+                if (
+                    data.habilidades.length === 0
+                ) {
+
+                    listaHabilidades.innerHTML =
+                        "<p class='mensagem-vazia'>"
+                        + "Nenhuma habilidade encontrada."
+                        + "</p>";
+
+                    return;
+
+                }
+
+
+                data.habilidades.forEach(
+                    function (habilidade) {
+
+                        criarCheckbox(
+                            listaHabilidades,
+                            "habilidades",
+                            habilidade.id,
+                            habilidade.codigo,
+                            habilidade.descricao
+                        );
+
+
+                        // Recupera o checkbox que
+                        // acabamos de criar.
+
+                        const item =
+                            listaHabilidades
+                            .lastElementChild;
+
+                        const checkbox =
+                            item.querySelector(
+                                'input[name="habilidades"]'
+                            );
+
+
+                        // Mantém marcada caso ela continue
+                        // disponível após uma alteração.
+
+                        if (
+                            habilidadesSelecionadas.has(
+                                String(habilidade.id)
+                            )
+                        ) {
+
+                            checkbox.checked = true;
+
+                        }
+
+                    }
+                );
+
+            })
+
+            .catch(function (error) {
+
+                if (
+                    numeroRequisicao
+                    !== requisicaoHabilidades
+                ) {
+
+                    return;
+
+                }
+
+
+                console.error(error);
+
+
+                listaHabilidades.innerHTML =
+                    "<p class='mensagem-vazia'>"
+                    + "Não foi possível carregar "
+                    + "as habilidades."
+                    + "</p>";
+
+            });
+
+    }
+
+    // =====================================================
+    // CONTROLAR RECOMPOSIÇÃO
+    // =====================================================
+
+    function atualizarRecomposicao() {
+
+        const optionSelecionada =
+            disciplinaSelect.options[
+                disciplinaSelect.selectedIndex
+            ];
+
+        if (!optionSelecionada) {
+
+            secaoRecomposicao.style.display = "none";
+            return;
+
+        }
+
+        const nomeDisciplina =
+            optionSelecionada.textContent
+            .trim()
+            .toLowerCase();
+
+
+        const possuiRecomposicao =
+            nomeDisciplina === "língua portuguesa"
+            || nomeDisciplina === "matemática";
+
+
+        if (possuiRecomposicao) {
+
+            secaoRecomposicao.style.display = "block";
+
+        } else {
+
+            secaoRecomposicao.style.display = "none";
+
+        }
+
+    }
+
+    // =====================================================
+    // CONTROLAR CRITÉRIOS DE AVALIAÇÃO DO EM
+    // =====================================================
+
+    function atualizarAvaliacao() {
+
+        if (tipoEtapa === "EM") {
+
+            blocoCriteriosAvaliacaoEM.style.display =
+                "block";
+
+        } else {
+
+            blocoCriteriosAvaliacaoEM.style.display =
+                "none";
+
+        }
+
+    }
+
+    // =====================================================
+    // CARREGAR DADOS CURRICULARES
+    // =====================================================
+
+    function carregarDadosCurriculares() {
+
+        const serieId =
+            serieSelect.value;
+
+        const disciplinaId =
+            disciplinaSelect.value;
+
+
+        limparDadosCurriculares();
+
+
+        if (
+            !serieId
+            || !disciplinaId
+        ) {
+
+            return;
+
+        }
+
+
+        const url =
+            "{% url 'carregar_dados_curriculares' %}"
+            + "?serie="
+            + encodeURIComponent(serieId)
+            + "&disciplina="
+            + encodeURIComponent(disciplinaId);
+
+
+        fetch(url)
+
+            .then(function (response) {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Erro ao carregar "
+                        + "dados curriculares."
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(function (data) {
+
+                // Guarda se estamos no EF ou EM.
+
+                tipoEtapa = data.tipo;
+
+
+                // =========================================
+                // COMPETÊNCIAS
+                // =========================================
+
+                listaCompetencias.innerHTML = "";
+
+
+                if (
+                    data.competencias.length > 0
+                ) {
+
+                    data.competencias.forEach(
+                        function (competencia) {
+
+                            criarCheckbox(
+                                listaCompetencias,
+                                "competencias",
+                                competencia.id,
+                                competencia.codigo,
+                                competencia.descricao
+                            );
+
+                        }
+                    );
+
+                } else {
+
+                    listaCompetencias.innerHTML =
+                        "<p class='mensagem-vazia'>"
+                        + "Nenhuma competência "
+                        + "cadastrada."
+                        + "</p>";
+
+                }
+
+
+                // =========================================
+                // CURRÍCULO DIGITAL
+                // =========================================
+
+                listaCurriculoDigital.innerHTML = "";
+
+
+                if (
+                    data.curriculo_digital.length > 0
+                ) {
+
+                    data.curriculo_digital.forEach(
+                        function (habilidade) {
+
+                            criarCheckbox(
+                                listaCurriculoDigital,
+                                "habilidades_curriculo_digital",
+                                habilidade.id,
+                                habilidade.codigo,
+                                habilidade.descricao
+                            );
+
+                        }
+                    );
+
+                } else {
+
+                    listaCurriculoDigital.innerHTML =
+                        "<p class='mensagem-vazia'>"
+                        + "Nenhuma habilidade do "
+                        + "Currículo Digital cadastrada."
+                        + "</p>";
+
+                }
+
+
+                // =========================================
+                // EXIBE A SEÇÃO
+                // =========================================
+
+                secaoCurricular.style.display =
+                    "block";
+
+                atualizarRecomposicao();
+
+                atualizarAvaliacao();
+
+                carregarHabilidades();
+
+
+                // =========================================
+                // HABILIDADES REGULARES
+                // =========================================
+                //
+                // EF:
+                // carrega imediatamente.
+                //
+                // EM:
+                // mostra inicialmente a mensagem para
+                // selecionar uma competência.
+                // =========================================
+
+                //carregarHabilidades();
+
+            })
+
+            .catch(function (error) {
+
+                console.error(error);
+
+                alert(
+                    "Não foi possível carregar "
+                    + "os dados curriculares."
+                );
+
+            });
+
+    }
+
+
+    // =====================================================
+    // EVENTO: ALTERAÇÃO DA SÉRIE
+    // =====================================================
+
+    serieSelect.addEventListener(
+        "change",
+        function () {
+
+            carregarDisciplinas();
+
+        }
+    );
+
+
+    // =====================================================
+    // EVENTO: ALTERAÇÃO DA DISCIPLINA
+    // =====================================================
+
+    disciplinaSelect.addEventListener(
+        "change",
+        function () {
+
+            carregarDadosCurriculares();
+
+        }
+    );
+
+
+    // =====================================================
+    // EVENTO: COMPETÊNCIA MARCADA/DESMARCADA
+    // =====================================================
+
+    listaCompetencias.addEventListener(
+        "change",
+        function (event) {
+
+            if (
+                event.target.name === "competencias"
+                && tipoEtapa === "EM"
+            ) {
+
+                carregarHabilidades();
+
+            }
+
+        }
+    );
+
+
+    // =====================================================
+    // FORMULÁRIO DEVOLVIDO COM DADOS
+    // =====================================================
+    //
+    // Caso futuramente a página seja devolvida após
+    // algum erro de validação, tentamos reconstruir
+    // os dados curriculares existentes.
+    // =====================================================
+
+    if (
+        serieSelect.value
+        && disciplinaSelect.value
+    ) {
+
+        carregarDadosCurriculares();
+
+    }
+
+});
+
+</script>
+
+{% endblock %}
